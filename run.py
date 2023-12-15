@@ -23,31 +23,3 @@
 # else:
 #     print(f"请求失败，状态码: {response.status_code}")
 #     print(response.text)
-
-import pathlib
-import textwrap
-
-import google.generativeai as genai
-
-from IPython.display import display
-from IPython.display import Markdown
-
-
-def to_markdown(text):
-    text = text.replace('•', '  *')
-    return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
-
-
-# api key
-genai.configure(api_key='AIzaSyBBWi-RvNvNqX3w3K5DnUfFR3ZGmMu69M0')
-
-# 列出模型
-for m in genai.list_models():
-    if 'generateContent' in m.supported_generation_methods:
-        print(m.name)
-
-model = genai.GenerativeModel('gemini-pro')
-
-response = model.generate_content("What is the meaning of life?")
-
-print(response.text)
